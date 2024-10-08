@@ -1,9 +1,9 @@
 import os
 from flask import Flask, request, abort
-from linebot.v3 import LineBotApi
-from linebot.v3.webhook import WebhookHandler
+from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
+
 
 app = Flask(__name__)
 
@@ -47,6 +47,5 @@ def handle_message(event):
     )
 
 if __name__ == "__main__":
-    # Herokuの環境変数からポートを取得し、アプリを起動
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
