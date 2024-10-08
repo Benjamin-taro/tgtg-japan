@@ -8,6 +8,10 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 app = Flask(__name__)
 
 
+# LINE Messaging API のアクセストークンとシークレットを設定
+line_bot_api = LineBotApi('1654881603')
+handler = WebhookHandler('b3c1ec9d12b3d7e8916792bca9aeff28')
+
 @app.route("/callback", methods=['POST'])
 def callback():
     # Webhookからのリクエストを受け取る
