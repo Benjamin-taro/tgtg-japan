@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, QuickReply, QuickReplyButton, MessageAction
 
 
 app = Flask(__name__)
@@ -30,6 +30,13 @@ def callback():
 def handle_message(event):
     user_message = event.message.text.lower()  # ユーザーのメッセージを取得（小文字に変換して比較しやすくする）
 
+    # クイックリプライボタンを用意
+    quick_reply_buttons = QuickReply(items=[
+        QuickReplyButton(action=MessageAction(label="天気", text="天気")),
+        QuickReplyButton(action=MessageAction(label="ニュース", text="ニュース")),
+        QuickReplyButton(action=MessageAction(label="レストラン", text="レストラン"))
+    ])
+
     # 条件分岐による返信内容のカスタマイズ
     if 'こんにちは' in user_message:
         reply_text = "こんにちは！何かお手伝いできることはありますか？"
@@ -40,11 +47,12 @@ def handle_message(event):
     else:
         reply_text = "申し訳ありません、そのメッセージの意味は理解できませんが、他にお手伝いできることがあれば教えてください。"
 
-    # ユーザーに返信
+    # ユーザーに返信とクイックリプライを送信
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=reply_text)
+        TextSendMessage(text=reply_text, quick_reply=quick_reply_buttons)
     )
+
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
