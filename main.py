@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 
 # LINE Messaging API のアクセストークンとシークレットを設定
-line_bot_api = LineBotApi('1654881603')
+line_bot_api = LineBotApi('8BPpPHpfULeAPom/gdDa22x3pMlkTjPKp9KtKB0dxVkZeMBbLoP6wlZaQYNLEkYqyBaucRJaIFS0qbfGx29ooebSaIgbQnUIyfZWhvJ6XvRAIOi65wcuRXNz0bHVdifLxayr/FCtYJoIpPl2INs0cwdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('b3c1ec9d12b3d7e8916792bca9aeff28')
 
 @app.route("/callback", methods=['POST'])
